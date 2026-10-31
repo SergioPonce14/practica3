@@ -1,32 +1,14 @@
-# React + TypeScript + Vite
+# Atlas de La Liga · M3 Reactor Core
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Misión M3 · Reactor Core — Web Development I.
 
-Currently, two official plugins are available:
+## Cómo probarlo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Explora los clubes busca en tiempo real, ordena con filtros, marca tus favoritos  y haz clic en una tarjeta para ver la historia completa. 
 
-## React Compiler
+## Uso de IA
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Autopsia
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+1. Decidí extraer la lógica de guardado y lectura de favoritos a un hook personalizado . Descarté la alternativa de manejar el `localStorage` directamente dentro de un `useEffect` en `App.tsx`
+2. En `App.tsx`, las listas `equiposFiltrados` y `equiposOrdenados`, y el calculo de `estadisticas`, se guardan directamente en cada render a partir de  variables de estado. Descarté guardar la lista filtrada u ordenada en un nuevo `useState` y actualizarla mediante un `useEffect` , reduciendo así la complejidad, evitando renders  y garantizando que los datos siempre estén sincronizados con la interfaz
