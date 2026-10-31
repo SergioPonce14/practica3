@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { obtenerEquiposLaLiga } from "./api";
 import { filtrarEquipos, ordenarEquipos, calcularEstadisticas } from "./logica";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import PanelControles from "./componentes/PanelControles";
+import PanelEstadisticas from "./componentes/PanelEstadisticas";
 import type { Equipo, CriterioOrden } from "./tipos";
 
 export default function App() {
@@ -78,11 +80,10 @@ export default function App() {
     }, [estadisticas.totalEquipos]);
 
     // añadir o quitar favoritos
-function manejarAlternarFavorito(idEquipo: string) {
+    function manejarAlternarFavorito(idEquipo: string) {
         if (favoritos.includes(idEquipo)) {
             setFavoritos(favoritos.filter((id) => id !== idEquipo));
         } else {
-            
             setFavoritos([...favoritos, idEquipo]);
         }
     }
@@ -95,7 +96,19 @@ function manejarAlternarFavorito(idEquipo: string) {
             </header>
 
             <main className="contenedor-principal">
-                
+                <PanelControles
+                    busqueda={busqueda}
+                    onCambiarBusqueda={setBusqueda}
+                    criterioOrden={criterioOrden}
+                    onCambiarOrden={setCriterioOrden}
+                    soloFavoritos={soloFavoritos}
+                    onCambiarFavoritos={setSoloFavoritos}
+                    onRecargar={() => cargarDatos(true)}
+                    cargando={cargando}
+                />
+
+                <PanelEstadisticas stats={estadisticas} />
+
                 {cargando && (
                     <div className="estado-carga">
                         <p>⏳ Cargando equipos de La Liga...</p>
@@ -115,7 +128,8 @@ function manejarAlternarFavorito(idEquipo: string) {
                     <p>
                         ✅ Datos listos: <strong>{estadisticas.totalEquipos}</strong> equipos en{" "}
                         <strong>{estadisticas.totalCiudades}</strong> ciudades. (Favoritos:{" "}
-                        {favoritos.length})
+                        {favoritos.length} | Seleccionado:{" "}
+                        {equipoSeleccionado ? equipoSeleccionado.nombre : "ninguno"})
                     </p>
                 )}
             </main>
