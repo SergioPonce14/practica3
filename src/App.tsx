@@ -4,6 +4,7 @@ import { filtrarEquipos, ordenarEquipos, calcularEstadisticas } from "./logica";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import PanelControles from "./componentes/PanelControles";
 import PanelEstadisticas from "./componentes/PanelEstadisticas";
+import ListaEquipos from "./componentes/ListaEquipos";
 import type { Equipo, CriterioOrden } from "./tipos";
 
 export default function App() {
@@ -125,11 +126,18 @@ export default function App() {
                 )}
 
                 {!cargando && !error && (
-                    <p>
-                        ✅ Datos listos: <strong>{estadisticas.totalEquipos}</strong> equipos en{" "}
-                        <strong>{estadisticas.totalCiudades}</strong> ciudades. (Favoritos:{" "}
-                        {favoritos.length} | Seleccionado:{" "}
-                        {equipoSeleccionado ? equipoSeleccionado.nombre : "ninguno"})
+                    <ListaEquipos
+                        equipos={equiposOrdenados}
+                        totalOriginales={equipos.length}
+                        favoritosIds={favoritosSet}
+                        onSeleccionarEquipo={setEquipoSeleccionado}
+                        onAlternarFavorito={manejarAlternarFavorito}
+                    />
+                )}
+
+                {equipoSeleccionado && (
+                    <p style={{ marginTop: "16px", textAlign: "center" }}>
+                        Equipo seleccionado: <strong>{equipoSeleccionado.nombre}</strong>
                     </p>
                 )}
             </main>
