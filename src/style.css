@@ -86,3 +86,10 @@ header h1 { color: var(--color-primario); margin-bottom: 6px; }
   height: 28px;
   object-fit: contain;
 }
+
+.resumen-equipo {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 8px;
+}

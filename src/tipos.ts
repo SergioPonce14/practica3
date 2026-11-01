@@ -38,7 +38,3 @@ export interface EstadisticasLiga {
     totalCiudades: number;
 }
 
-export interface EstructuraCache {
-    timestamp: number;
-    equipos: Equipo[];
-}

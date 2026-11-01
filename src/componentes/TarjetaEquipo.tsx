@@ -55,7 +55,7 @@ export default function TarjetaEquipo({
                     🏛 Fundación:{" "}
                     {equipo.fundacion !== undefined ? equipo.fundacion : "Desconocida"}
                 </p>
-                <p style={{ fontSize: "0.85rem", color: "#666", fontStyle: "italic", marginTop: "8px" }}>
+                <p className="resumen-equipo">
                     📝 {resumen}
                 </p>
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export function useLocalStorage<T>(clave: string, valorInicial: T) {
-    // 1. Estado inicial perezoso: lee de localStorage solo al montar
+    // lee de localStorage solo al montar
     const [valor, setValor] = useState<T>(() => {
         try {
             const guardado = localStorage.getItem(clave);
@@ -11,7 +11,7 @@ export function useLocalStorage<T>(clave: string, valorInicial: T) {
         }
     });
 
-    // 2. Efecto justificado: sincroniza el estado con un sistema externo (localStorage)
+    //  sincroniza el estado con localStorage
     useEffect(() => {
         try {
             localStorage.setItem(clave, JSON.stringify(valor));

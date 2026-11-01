@@ -6,7 +6,7 @@ import PanelControles from "./componentes/PanelControles";
 import PanelEstadisticas from "./componentes/PanelEstadisticas";
 import ListaEquipos from "./componentes/ListaEquipos";
 import type { Equipo, CriterioOrden } from "./tipos";
-
+import ModalDetalle from "./componentes/ModalDetalle";
 export default function App() {
     //Estados de la petición asíncrona
     const [equipos, setEquipos] = useState<Equipo[]>([]);
@@ -63,7 +63,7 @@ export default function App() {
 
         iniciar();
 
-        // Función de limpieza 
+        // limpieza 
         return () => {
             ignorar = true;
         };
@@ -81,12 +81,14 @@ export default function App() {
     }, [estadisticas.totalEquipos]);
 
     // añadir o quitar favoritos
-    function manejarAlternarFavorito(idEquipo: string) {
-        if (favoritos.includes(idEquipo)) {
-            setFavoritos(favoritos.filter((id) => id !== idEquipo));
-        } else {
-            setFavoritos([...favoritos, idEquipo]);
-        }
+ function manejarAlternarFavorito(idEquipo: string) {
+        setFavoritos((favoritosPrevios) => {
+            if (favoritosPrevios.includes(idEquipo)) {
+                return favoritosPrevios.filter((id) => id !== idEquipo);
+            } else {
+                return [...favoritosPrevios, idEquipo];
+            }
+        });
     }
 
     return (
@@ -125,7 +127,7 @@ export default function App() {
                     </div>
                 )}
 
-                {!cargando && !error && (
+               {!cargando && !error && (
                     <ListaEquipos
                         equipos={equiposOrdenados}
                         totalOriginales={equipos.length}
@@ -134,13 +136,13 @@ export default function App() {
                         onAlternarFavorito={manejarAlternarFavorito}
                     />
                 )}
-
-                {equipoSeleccionado && (
-                    <p style={{ marginTop: "16px", textAlign: "center" }}>
-                        Equipo seleccionado: <strong>{equipoSeleccionado.nombre}</strong>
-                    </p>
-                )}
             </main>
+
+            {/* Renderizamos el modal  */}
+            <ModalDetalle 
+                equipo={equipoSeleccionado} 
+                onCerrar={() => setEquipoSeleccionado(null)} 
+            />
         </>
     );
 }

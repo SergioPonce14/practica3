@@ -7,6 +7,7 @@ Misión M3 · Reactor Core — Web Development I.
 Explora los clubes busca en tiempo real, ordena con filtros, marca tus favoritos  y haz clic en una tarjeta para ver la historia completa. 
 
 ## Uso de IA
+Usé Gemini como pareja de programación Ejemplo de prompt real: "Como adapto el uso de localStorage a un hook", verifiqué cada paso  arrancando el servidor  (`npm run dev`) y comprobando la consola del navegador y la de Vite en busca de errores.  gran parte del css se construyó utilizando IA
 
 ## Autopsia
 
